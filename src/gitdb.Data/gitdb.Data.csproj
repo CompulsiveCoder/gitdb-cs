@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>gitdb.Data</RootNamespace>
+    <AssemblyName>gitdb.Data</AssemblyName>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>townsim.Data.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Parser.cs" />
+    <Compile Include="DataIdManager.cs" />
+    <Compile Include="BaseDataAdapter.cs" />
+    <Compile Include="DataDeleter.cs" />
+    <Compile Include="DataLinker.cs" />
+    <Compile Include="DataLister.cs" />
+    <Compile Include="DataReader.cs" />
+    <Compile Include="DataSaver.cs" />
+    <Compile Include="DataUpdater.cs" />
+    <Compile Include="DataPreparer.cs" />
+    <Compile Include="DataConfig.cs" />
+    <Compile Include="EntityNotFoundException.cs" />
+    <Compile Include="EntityAlreadyExistsException.cs" />
+    <Compile Include="UnsavedLinksException.cs" />
+    <Compile Include="DataTypeManager.cs" />
+    <Compile Include="DataChecker.cs" />
+    <Compile Include="GitDB.cs" />
+    <Compile Include="GitDBSettings.cs" />
+    <Compile Include="FileNamer.cs" />
+    <Compile Include="TypeNamesParser.cs" />
+    <Compile Include="DirectoryContext.cs" />
+    <Compile Include="DataIdsParser.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\gitdb.Entities\gitdb.Entities.csproj">
+      <Project>{440222A1-E669-451C-AF43-D6BF7FFAADF0}</Project>
+      <Name>gitdb.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

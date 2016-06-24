@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitdb.Data", "gitdb.Data\gitdb.Data.csproj", "{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitdb.Data.Tests", "gitdb.Data.Tests\gitdb.Data.Tests.csproj", "{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitdb.Data.Tests.Integration", "gitdb.Data.Tests.Integration\gitdb.Data.Tests.Integration.csproj", "{E30CF0B8-E352-4250-906E-D8FB37AAD404}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitdb.Entities", "gitdb.Entities\gitdb.Entities.csproj", "{440222A1-E669-451C-AF43-D6BF7FFAADF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitdb.Entities.Tests", "gitdb.Entities.Tests\gitdb.Entities.Tests.csproj", "{B3F89F02-F6DC-495D-8C87-FB264B4532C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gitdb.Data.Tests.Unit", "gitdb.Data.Tests.Unit\gitdb.Data.Tests.Unit.csproj", "{B34DCDE3-0FBE-4258-ACC0-CCF76305E4B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{440222A1-E669-451C-AF43-D6BF7FFAADF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{440222A1-E669-451C-AF43-D6BF7FFAADF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{440222A1-E669-451C-AF43-D6BF7FFAADF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{440222A1-E669-451C-AF43-D6BF7FFAADF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B34DCDE3-0FBE-4258-ACC0-CCF76305E4B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B34DCDE3-0FBE-4258-ACC0-CCF76305E4B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B34DCDE3-0FBE-4258-ACC0-CCF76305E4B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B34DCDE3-0FBE-4258-ACC0-CCF76305E4B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F89F02-F6DC-495D-8C87-FB264B4532C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F89F02-F6DC-495D-8C87-FB264B4532C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F89F02-F6DC-495D-8C87-FB264B4532C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F89F02-F6DC-495D-8C87-FB264B4532C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E30CF0B8-E352-4250-906E-D8FB37AAD404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E30CF0B8-E352-4250-906E-D8FB37AAD404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E30CF0B8-E352-4250-906E-D8FB37AAD404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E30CF0B8-E352-4250-906E-D8FB37AAD404}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = gitdb.Data\gitdb.Data.csproj
+	EndGlobalSection
+EndGlobal

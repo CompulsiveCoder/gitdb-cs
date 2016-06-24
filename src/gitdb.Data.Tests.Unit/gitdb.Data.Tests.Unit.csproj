@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B34DCDE3-0FBE-4258-ACC0-CCF76305E4B6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>gitdb.Data.Tests.Unit</RootNamespace>
+    <AssemblyName>gitdb.Data.Tests.Unit</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BaseDataUnitTestFixture.cs" />
+    <Compile Include="DataCheckerUnitTestFixture.cs" />
+    <Compile Include="DataLinkerUnitTestFixture.cs" />
+    <Compile Include="DataSaverUnitTestFixture.cs" />
+    <Compile Include="DataTypeManagerUnitTestFixture.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\gitdb.Data\gitdb.Data.csproj">
+      <Project>{ABD79A28-4EDC-4400-9583-4CB96F5E84B9}</Project>
+      <Name>gitdb.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gitdb.Data.Tests\gitdb.Data.Tests.csproj">
+      <Project>{C3847E16-2B96-4CEC-8110-11C32CA1D4A1}</Project>
+      <Name>gitdb.Data.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\gitdb.Entities\gitdb.Entities.csproj">
+      <Project>{440222A1-E669-451C-AF43-D6BF7FFAADF0}</Project>
+      <Name>gitdb.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
