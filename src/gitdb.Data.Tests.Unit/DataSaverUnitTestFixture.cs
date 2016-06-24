@@ -50,6 +50,9 @@ namespace gitdb.Data.Tests.Unit
 
             Assert.IsTrue (File.Exists (filePath));
 
+            var typesFilePath = Path.Combine(context.Location.WorkingDirectory, context.TypeManager.TypesFileName);
+
+            Assert.IsTrue(File.Exists(typesFilePath));
 		}
 
 		// TODO: Should this be moved to integration tests?

@@ -21,7 +21,7 @@ namespace gitdb.Data
 		public T[] Get<T>()
             where T : BaseEntity
 		{
-			var ids = IdManager.GetIds(typeof(T).Name);
+			var ids = IdManager.GetIds(typeof(T).FullName);
 
 			var entities = new List<T> ();
 			foreach (string id in ids) {

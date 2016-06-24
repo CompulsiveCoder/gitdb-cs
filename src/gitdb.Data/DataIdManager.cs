@@ -7,8 +7,6 @@ namespace gitdb.Data
 {
 	public class DataIdManager
     {
-        public string IdsFileName = "EntityIds";
-
         public DirectoryContext Context { get;set; }
 
         public DataIdsParser IdsParser = new DataIdsParser ();
@@ -23,28 +21,27 @@ namespace gitdb.Data
 
 		public void Add(BaseEntity entity)
 		{
-			var ids = new List<string>(GetIds (entity.GetType().Name));
+            var ids = new List<string>(GetIds (entity.TypeName));
 
 			if (!ids.Contains (entity.Id))
 				ids.Add (entity.Id);
 
-			SetIds (entity.GetType (), ids.ToArray ());
+			SetIds (entity.TypeName, ids.ToArray ());
 		}
-
 
 		public void Remove(BaseEntity entity)
 		{
-			var ids = new List<string>(GetIds (entity.GetType().Name));
+			var ids = new List<string>(GetIds (entity.TypeName));
 
 			if (!ids.Contains (entity.Id))
 				ids.Remove (entity.Id);
 
-			SetIds (entity.GetType (), ids.ToArray ());
+            SetIds (entity.TypeName, ids.ToArray ());
 		}
 
 		public string[] GetIds(string entityType)
         {
-            var filePath = Context.GetPath (IdsFileName);
+            var filePath = Context.GetPath (entityType + "-Ids");
 
             if (File.Exists (filePath)) {
                 var content = File.ReadAllText (filePath);
@@ -56,9 +53,9 @@ namespace gitdb.Data
                 return new string[] {};
 		}
 
-		public void SetIds(Type entityType, string[] ids)
+		public void SetIds(string entityType, string[] ids)
         {
-            var filePath = Context.GetPath (IdsFileName);
+            var filePath = Context.GetPath (entityType + "-Ids");
 
             var idsString = IdsParser.CompileIds (ids);
 

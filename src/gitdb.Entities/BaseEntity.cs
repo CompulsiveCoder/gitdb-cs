@@ -9,37 +9,23 @@ namespace gitdb.Entities
 	{
 		public string Id;
 
-		// TODO: Remove
-		//[JsonIgnore]
-		//[NonSerialized]
-		//public EntityLog Log;
-
+        [NonSerialized]
 		public bool IsPendingLinkCommit = false;
-
-		//public string[] ChangedProperties = new String[]{};
 
         public string TypeName
         {
-            get { return GetType ().Name; }
+            get { return GetType ().FullName; }
         }
 
 		public BaseEntity ()
 		{
 			Id = Guid.NewGuid ().ToString();
-			// TODO: Remove
-		//	Log = new EntityLog ();
 		}
 
 		public string ToJson()
 		{
 			return JsonConvert.SerializeObject (this);
 		}
-
-		// TODO: Remove
-		/*public EntityLink GetLink()
-		{
-			return new EntityLink(this);
-		}*/
 
 		public void AddLink(string propertyName, BaseEntity linkedEntity)
 		{
@@ -61,12 +47,6 @@ namespace gitdb.Entities
 		{
 			return new EntityCloner ().Clone (this);
 		}
-
-		/*public void AddChangedProperty(string propertyName)
-		{
-			var list = new List<string> ();
-			list.
-		}*/
 	}
 }
 

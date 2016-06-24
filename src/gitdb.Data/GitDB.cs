@@ -3,6 +3,7 @@ using gitdb.Data;
 using gitdb.Entities;
 using System.Collections.Generic;
 using gitter;
+using System.IO;
 
 namespace gitdb.Data
 {
@@ -25,19 +26,30 @@ namespace gitdb.Data
 
 		public GitDBSettings Settings = new GitDBSettings();
 
-		public bool IsVerbose = true;
-
         public DirectoryContext Location { get; set; }
 
-        public Gitter Gitter = new Gitter();
+        public Gitter Gitter;
 
         public GitDB (string workingDirectory)
-		{
-            Construct (workingDirectory);
-		}
+        {
+            Construct (workingDirectory, null);
+        }
 
-        public void Construct(string workingDirectory)
+        public GitDB (string workingDirectory, GitDBSettings settings)
+        {
+            Construct (workingDirectory, settings);
+        }
+
+        public void Construct(string workingDirectory, GitDBSettings settings)
 		{
+            if (settings != null)
+                Settings = settings;
+
+            if (Settings.IsVerbose) {
+                Console.WriteLine ("Constructing GitDB:");
+                Console.WriteLine ("  " + workingDirectory);
+            }
+
             Location = new DirectoryContext (workingDirectory);
 
             TypeManager = new DataTypeManager (Location);
@@ -73,6 +85,8 @@ namespace gitdb.Data
 			// Make sure the linker is set to the saver and updater
 			saver.Linker = linker;
 			updater.Linker = linker;
+
+            Gitter = new Gitter ();
 		}
 
 		public void Open()
@@ -81,7 +95,7 @@ namespace gitdb.Data
 
 		public void SaveOrUpdate(BaseEntity entity)
 		{
-			if (IsVerbose)
+			if (Settings.IsVerbose)
 				Console.WriteLine ("Save/update");
 			
 			if (Exists (entity))
@@ -133,7 +147,7 @@ namespace gitdb.Data
 
 		public void CommitPending()
 		{
-			if (IsVerbose)
+			if (Settings.IsVerbose)
 				Console.WriteLine ("Committing pending entities");
 			
 			// TODO: Remove if not needed
@@ -219,7 +233,14 @@ namespace gitdb.Data
 
         public void Init()
         {
-            Gitter.Init (Location.WorkingDirectory);
+            if (!Directory.Exists (Location.WorkingDirectory))
+                Directory.CreateDirectory (Location.WorkingDirectory);
+
+            var gitDir = Path.Combine (Location.WorkingDirectory, ".git");
+            var isInitialized = Directory.Exists (gitDir);
+            if (!isInitialized) {
+                Gitter.Init (Location.WorkingDirectory);
+            }
         }
 
         public void Commit()

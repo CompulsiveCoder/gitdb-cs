@@ -32,9 +32,6 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\lib\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Sider">
-      <HintPath>..\..\lib\Sider.0.10.0\lib\Sider.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -43,6 +40,7 @@
     <Compile Include="DataUpdaterTestFixture.cs" />
     <Compile Include="DataSaverIntegrationTestFixture.cs" />
     <Compile Include="DataDeleterIntegrationTestFixture.cs" />
+    <Compile Include="DataListerIntegrationTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

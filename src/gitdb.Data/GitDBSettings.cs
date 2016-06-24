@@ -17,6 +17,15 @@ namespace gitdb.Data
 		{
 			Prefix = Guid.NewGuid ().ToString ();
 		}
+
+        static public GitDBSettings Verbose
+        {
+            get {
+                var settings = new GitDBSettings ();
+                settings.IsVerbose = true;
+                return settings;
+            }
+        }
 	}
 }
 
