@@ -2,10 +2,6 @@ sudo: required
 
 language: csharp
 
-services:
-  - docker
-  - redis
-
 env:
   - TEST_SUITE=Unit
   - TEST_SUITE=Integration
