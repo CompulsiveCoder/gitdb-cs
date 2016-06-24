@@ -21,7 +21,7 @@ if [ -d ".tmp/gitdb" ]; then
     rm .tmp/gitdb -rf
 fi
 
-git clone https://github.com/CompulsiveCoder/gitdb.git .tmp/gitdb --branch $BRANCH
+git clone https://github.com/CompulsiveCoder/gitdb-cs.git .tmp/gitdb --branch $BRANCH
 cd .tmp/gitdb && \
 sh init-build-test.sh && \
 cd $DIR && \

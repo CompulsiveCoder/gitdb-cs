@@ -10,4 +10,4 @@ fi
 
 echo "Branch: $BRANCH"
 
-docker run -it compulsivecoder/ubuntu-mono /bin/bash -c "curl https://raw.githubusercontent.com/CompulsiveCoder/gitdb/$BRANCH/test-from-github.sh | sh -s $BRANCH"
+docker run -it compulsivecoder/ubuntu-mono /bin/bash -c "curl https://raw.githubusercontent.com/CompulsiveCoder/gitdb-cs/$BRANCH/test-from-github.sh | sh -s $BRANCH"
