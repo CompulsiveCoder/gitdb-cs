@@ -76,7 +76,8 @@ namespace gitdb.Data.Tests.Integration
 			Assert.IsNull(newArticle.Author, "Linker failed to remove the link.");
 		}
 
-		[Test]
+        // TOD: Remove or reimplement
+		//[Test]
 		public void Test_TwoWayReference_RemoveOnDelete()
 		{
             Console.WriteLine ("");

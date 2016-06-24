@@ -1,0 +1,3 @@
+[submodule "mod/gitter-cs"]
+	path = mod/gitter-cs
+	url = https://github.com/CompulsiveCoder/gitter-cs.git

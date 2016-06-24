@@ -2,6 +2,7 @@
 using gitdb.Data;
 using gitdb.Entities;
 using System.Collections.Generic;
+using gitter;
 
 namespace gitdb.Data
 {
@@ -27,6 +28,8 @@ namespace gitdb.Data
 		public bool IsVerbose = true;
 
         public DirectoryContext Location { get; set; }
+
+        public Gitter Gitter = new Gitter();
 
         public GitDB (string workingDirectory)
 		{
@@ -213,6 +216,16 @@ namespace gitdb.Data
 			}
 			Console.WriteLine ("");
 		}
+
+        public void Init()
+        {
+            Gitter.Init (Location.WorkingDirectory);
+        }
+
+        public void Commit()
+        {
+            Gitter.Commit ();
+        }
 	}
 }
 
