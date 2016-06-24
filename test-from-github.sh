@@ -1,4 +1,4 @@
-echo "Testing gitdb project from github"
+echo "Testing project from github"
 echo "  Current directory:"
 echo "  $PWD"
 

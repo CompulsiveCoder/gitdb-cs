@@ -1,4 +1,4 @@
-echo "Initializing gitdb project"
+echo "Initializing project"
 echo "  Dir: $PWD"
 
 DIR=$PWD

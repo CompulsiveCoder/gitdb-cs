@@ -1,4 +1,4 @@
-echo "Preparing damanager project"
+echo "Preparing project"
 echo "  Dir: $PWD"
 
 sudo apt-get update

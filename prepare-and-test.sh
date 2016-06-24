@@ -1,4 +1,4 @@
-echo "Preparing to test damanager project"
+echo "Preparing to test project"
 echo "  Dir: $PWD"
 
 
