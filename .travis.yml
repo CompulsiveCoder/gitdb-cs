@@ -1,0 +1,14 @@
+sudo: required
+
+language: c#
+
+services:
+  - docker
+  - redis
+
+env:
+  - TEST_SUITE=Unit
+  - TEST_SUITE=Integration
+
+script:
+- sh prepare-and-test.sh $TEST_SUITE
