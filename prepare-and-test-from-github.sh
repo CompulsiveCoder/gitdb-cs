@@ -10,5 +10,5 @@ fi
 
 echo "Branch: $BRANCH"
 
-curl https://raw.githubusercontent.com/CompulsiveCoder/gitdb/$BRANCH/prepare.sh | sh
-curl https://raw.githubusercontent.com/CompulsiveCoder/gitdb/$BRANCH/test-from-github.sh | sh -s $BRANCH
+curl https://raw.githubusercontent.com/CompulsiveCoder/gitdb-cs/$BRANCH/prepare.sh | sh
+curl https://raw.githubusercontent.com/CompulsiveCoder/gitdb-cs/$BRANCH/test-from-github.sh | sh -s $BRANCH
