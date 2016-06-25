@@ -41,6 +41,7 @@
     <Compile Include="DataSaverUnitTestFixture.cs" />
     <Compile Include="DataTypeManagerUnitTestFixture.cs" />
     <Compile Include="DataListerUnitTestFixture.cs" />
+    <Compile Include="DataIdsManagerUnitTestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

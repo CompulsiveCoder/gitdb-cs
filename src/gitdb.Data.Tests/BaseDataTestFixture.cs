@@ -58,7 +58,6 @@ namespace gitdb.Data.Tests
 		public GitDB GetGitDB()
 		{
             var data = new GitDB (Environment.CurrentDirectory);
-			data.Settings.Prefix = "Test-" + Guid.NewGuid ().ToString ().Substring (0, 8);
 
 			return data;
 		}

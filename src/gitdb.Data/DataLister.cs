@@ -25,7 +25,11 @@ namespace gitdb.Data
 
 			var entities = new List<T> ();
 			foreach (string id in ids) {
-				entities.Add (Reader.Read<T>(id));
+                var entity = Reader.Read<T> (id);
+                // TODO: Is this check needed?
+                if (entity == null)
+                    throw new Exception ("Failed to load '" + typeof(T).FullName + "' entity.");
+				entities.Add (entity);
 			}
 			return entities.ToArray();
 		}
@@ -36,7 +40,11 @@ namespace gitdb.Data
 
 			var entities = new List<BaseEntity> ();
 			foreach (string id in ids) {
-				entities.Add (Reader.Read(entityTypeName, id));
+                var entity = Reader.Read (entityTypeName, id);
+                // TODO: Is this check needed?
+                if (entity == null)
+                    throw new Exception ("Failed to load '" + entityTypeName + "' entity.");
+				entities.Add (entity);
 			}
 			return entities.ToArray();
 		}

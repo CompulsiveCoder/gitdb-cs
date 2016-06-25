@@ -64,6 +64,7 @@
     <Compile Include="TypeNamesParser.cs" />
     <Compile Include="DirectoryContext.cs" />
     <Compile Include="DataIdsParser.cs" />
+    <Compile Include="InvalidTypeException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

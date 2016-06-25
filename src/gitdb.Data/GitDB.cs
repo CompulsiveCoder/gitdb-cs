@@ -30,22 +30,24 @@ namespace gitdb.Data
 
         public GitDB (string workingDirectory)
         {
-            Construct (workingDirectory, null);
+            Construct (new GitDBSettings (workingDirectory));
         }
 
-        public GitDB (string workingDirectory, GitDBSettings settings)
+        public GitDB (GitDBSettings settings)
         {
-            Construct (workingDirectory, settings);
+            Construct (settings);
         }
 
-        public void Construct(string workingDirectory, GitDBSettings settings)
+        public void Construct(GitDBSettings settings)
 		{
             if (settings != null)
                 Settings = settings;
+            else
+                Settings = new GitDBSettings (Environment.CurrentDirectory);
 
             if (Settings.IsVerbose) {
                 Console.WriteLine ("Constructing GitDB:");
-                Console.WriteLine ("  " + workingDirectory);
+                Console.WriteLine ("  " + settings.Location.DataDirectory);
             }
 
             TypeManager = new DataTypeManager (Settings.Location);

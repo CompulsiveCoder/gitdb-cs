@@ -4,21 +4,17 @@ namespace gitdb.Data
 {
 	public class GitDBSettings
 	{
-		public string Prefix = "";
-
 		public bool IsVerbose = false;
 
         public DirectoryContext Location;
 
-		public GitDBSettings (string dataDirectory, string prefix)
-		{
-			Prefix = prefix;
+        public GitDBSettings (string dataDirectory)
+        {
             Location = new DirectoryContext (dataDirectory);
-		}
+        }
 
 		public GitDBSettings ()
 		{
-            Prefix = Guid.NewGuid ().ToString ();
             Location = new DirectoryContext (Environment.CurrentDirectory);
 		}
 
@@ -29,6 +25,13 @@ namespace gitdb.Data
                 settings.IsVerbose = true;
                 return settings;
             }
+        }
+
+        static public GitDBSettings CreateVerbose(string dataDirectory)
+        {
+            var settings = new GitDBSettings (dataDirectory);
+            settings.IsVerbose = true;
+            return settings;
         }
 	}
 }

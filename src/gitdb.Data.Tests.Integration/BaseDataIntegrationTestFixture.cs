@@ -21,7 +21,6 @@ namespace gitdb.Data.Tests
 
         public void InitializeDB(GitDB db)
         {
-            db.Settings.Prefix = "Test-" + Guid.NewGuid ().ToString ().Substring (0, 8);
             db.Settings.IsVerbose = true;
         }
 	}

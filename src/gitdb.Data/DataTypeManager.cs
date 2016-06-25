@@ -76,7 +76,7 @@ namespace gitdb.Data
 
 		public void EnsureExists(Type type)
 		{
-			EnsureExists (type.FullName, type.AssemblyQualifiedName);
+            EnsureExists (type.FullName, type.FullName + ", " + type.Assembly.GetName().Name);
 		}
 
 		public void EnsureExists(string typeName, string typeFullName)
