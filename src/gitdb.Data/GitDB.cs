@@ -26,8 +26,6 @@ namespace gitdb.Data
 
 		public GitDBSettings Settings = new GitDBSettings();
 
-        public DirectoryContext Location { get; set; }
-
         public Gitter Gitter;
 
         public GitDB (string workingDirectory)
@@ -50,35 +48,33 @@ namespace gitdb.Data
                 Console.WriteLine ("  " + workingDirectory);
             }
 
-            Location = new DirectoryContext (workingDirectory);
-
-            TypeManager = new DataTypeManager (Location);
-			IdManager = new DataIdManager (Location);
+            TypeManager = new DataTypeManager (Settings.Location);
+            IdManager = new DataIdManager (Settings.Location);
 
 			EntityLinker = new EntityLinker ();
 
-            var preparer = new DataPreparer ();
+            var preparer = new DataPreparer (Settings);
 			Preparer = preparer;
 
-			var reader = new DataReader (Location, TypeManager, IdManager);
+			var reader = new DataReader (Settings, TypeManager, IdManager);
 			Reader = reader;
 
-			var lister = new DataLister (TypeManager, IdManager, reader);
+			var lister = new DataLister (Settings, TypeManager, IdManager, reader);
 			Lister = lister;
 
-            var checker = new DataChecker (Location, reader, Settings);
+            var checker = new DataChecker (Settings, reader);
 			Checker = checker;
 
-            var saver = new DataSaver (Location, Settings, TypeManager, IdManager, preparer, null, checker); // The linker argument is null because it needs to be set after it's created below
+            var saver = new DataSaver (Settings, TypeManager, IdManager, preparer, null, checker); // The linker argument is null because it needs to be set after it's created below
 			Saver = saver;
 
-            var updater = new DataUpdater (Location, Settings, null, preparer, checker); // The linker argument is null because it needs to be set after it's created below
+            var updater = new DataUpdater (Settings, null, preparer, checker); // The linker argument is null because it needs to be set after it's created below
 			Updater = updater;
 
 			var linker = new DataLinker (Settings, reader, saver, updater, checker, EntityLinker);
 			Linker = linker;
 
-			var deleter = new DataDeleter (Location, IdManager, linker);
+			var deleter = new DataDeleter (Settings, IdManager, linker);
 			Deleter = deleter;
 
 			// TODO: Is there a way to avoid this messy hack?
@@ -233,13 +229,13 @@ namespace gitdb.Data
 
         public void Init()
         {
-            if (!Directory.Exists (Location.WorkingDirectory))
-                Directory.CreateDirectory (Location.WorkingDirectory);
+            if (!Directory.Exists (Settings.Location.DataDirectory))
+                Directory.CreateDirectory (Settings.Location.DataDirectory);
 
-            var gitDir = Path.Combine (Location.WorkingDirectory, ".git");
+            var gitDir = Path.Combine (Settings.Location.DataDirectory, ".git");
             var isInitialized = Directory.Exists (gitDir);
             if (!isInitialized) {
-                Gitter.Init (Location.WorkingDirectory);
+                Gitter.Init (Settings.Location.DataDirectory);
             }
         }
 

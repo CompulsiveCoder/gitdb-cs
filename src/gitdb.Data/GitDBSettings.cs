@@ -8,14 +8,18 @@ namespace gitdb.Data
 
 		public bool IsVerbose = false;
 
-		public GitDBSettings (string prefix)
+        public DirectoryContext Location;
+
+		public GitDBSettings (string dataDirectory, string prefix)
 		{
 			Prefix = prefix;
+            Location = new DirectoryContext (dataDirectory);
 		}
 
 		public GitDBSettings ()
 		{
-			Prefix = Guid.NewGuid ().ToString ();
+            Prefix = Guid.NewGuid ().ToString ();
+            Location = new DirectoryContext (Environment.CurrentDirectory);
 		}
 
         static public GitDBSettings Verbose

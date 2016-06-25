@@ -13,7 +13,7 @@ namespace gitdb.Data.Tests.Unit
 		{
             var context = GetTestDataContext ();
 
-            var checker = new DataChecker (context.Location, context.Reader, context.Settings);
+            var checker = new DataChecker (context.Settings, context.Reader);
 
 			var exampleArticle = new ExampleArticle ();
 

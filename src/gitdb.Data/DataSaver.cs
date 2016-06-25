@@ -9,7 +9,6 @@ namespace gitdb.Data
 {
 	public class DataSaver : BaseDataAdapter
 	{
-		public GitDBSettings Settings;
 		public DataIdManager IdManager;
 		public DataTypeManager TypeManager;
 		public DataPreparer Preparer;
@@ -19,7 +18,7 @@ namespace gitdb.Data
 
 		public List<BaseEntity> PendingSave = new List<BaseEntity>();
 
-		public DataSaver (DirectoryContext location, GitDBSettings settings, DataTypeManager typeManager, DataIdManager idManager, DataPreparer preparer, DataLinker linker, DataChecker checker)
+        public DataSaver (GitDBSettings settings, DataTypeManager typeManager, DataIdManager idManager, DataPreparer preparer, DataLinker linker, DataChecker checker) : base(settings)
 		{
 			Settings = settings;
 			IdManager = idManager;
@@ -27,7 +26,7 @@ namespace gitdb.Data
 			Preparer = preparer;
 			Checker = checker;
 			Linker = linker;
-            Namer = new FileNamer (location);
+            Namer = new FileNamer (settings.Location);
 		}
 
 		public void Save(BaseEntity entity)

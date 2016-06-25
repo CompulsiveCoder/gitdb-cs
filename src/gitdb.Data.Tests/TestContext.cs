@@ -35,19 +35,19 @@ namespace gitdb.Data.Tests
 
 			EntityLinker = new EntityLinker ();
 
-			var preparer = new DataPreparer ();
+            var preparer = new DataPreparer (Settings);
 			Preparer = preparer;
 
-			var reader = new DataReader (Location, TypeManager, IdManager);
+			var reader = new DataReader (Settings, TypeManager, IdManager);
 			Reader = reader;
 
-			var checker = new DataChecker (Location, reader, Settings);
+			var checker = new DataChecker (Settings, reader);
 			Checker = checker;
 
-            var saver = new DataSaver (Location, Settings, TypeManager, IdManager, preparer, null, checker); // The linker argument is null because it needs to be set after it's created below
+            var saver = new DataSaver (Settings, TypeManager, IdManager, preparer, null, checker); // The linker argument is null because it needs to be set after it's created below
 			Saver = saver;
 
-			var updater = new DataUpdater (Location, Settings, null, preparer, checker); // The linker argument is null because it needs to be set after it's created below
+			var updater = new DataUpdater (Settings, null, preparer, checker); // The linker argument is null because it needs to be set after it's created below
 			Updater = updater;
 
 			var linker = new DataLinker (Settings, reader, saver, updater, checker, EntityLinker);

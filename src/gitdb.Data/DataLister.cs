@@ -10,7 +10,7 @@ namespace gitdb.Data
 		public DataIdManager IdManager;
 		public DataReader Reader;
 
-		public DataLister (DataTypeManager typeManager, DataIdManager idManager, DataReader reader)
+        public DataLister (GitDBSettings settings, DataTypeManager typeManager, DataIdManager idManager, DataReader reader) : base(settings)
 		{
 			TypeManager = typeManager;
 			IdManager = idManager;

@@ -7,7 +7,7 @@ namespace gitdb.Data.Tests
         public bool OverrideCheck = true;
         public bool ReturnValue = false;
 
-        public MockDataChecker (DirectoryContext location, DataReader reader, GitDBSettings settings) : base(location, reader, settings)
+        public MockDataChecker (GitDBSettings settings, DataReader reader) : base(settings, reader)
         {
         }
 

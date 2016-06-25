@@ -11,11 +11,11 @@ namespace gitdb.Data
 
         public FileNamer Namer;
 
-		public DataReader (DirectoryContext location, DataTypeManager typeManager, DataIdManager idManager)
+        public DataReader (GitDBSettings settings, DataTypeManager typeManager, DataIdManager idManager) : base(settings)
 		{
 			TypeManager = typeManager;
 			IdManager = idManager;
-            Namer = new FileNamer (location);
+            Namer = new FileNamer (settings.Location);
 		}
 
 		public T Read<T>(string entityId)
