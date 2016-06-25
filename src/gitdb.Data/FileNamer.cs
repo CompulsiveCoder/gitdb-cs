@@ -4,8 +4,6 @@ namespace gitdb.Data
 {
     public class FileNamer
     {
-        public string Extension { get; set; }
-
         public DirectoryContext Location { get; set; }
 
         public FileNamer (DirectoryContext directoryContext)
@@ -21,11 +19,7 @@ namespace gitdb.Data
         }
 
         public string CreateFileName(string typeName, string id){
-            return String.Format("{0}-{1}.{2}", typeName, id, Extension);
-        }
-
-        public string CreateTypesFileName(){
-            return "Types.list";
+            return String.Format("{0}-{1}", typeName, id);
         }
     }
 }

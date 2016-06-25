@@ -57,7 +57,7 @@ namespace gitdb.Data.Tests.Integration
 
 			var data = GetMockGitDB ();
 
-			data.IsVerbose = true;
+			data.Settings.IsVerbose = true;
 
 			data.Save (article);
 			data.Save (author);
@@ -85,7 +85,7 @@ namespace gitdb.Data.Tests.Integration
 			Console.WriteLine ("");
 
             var data = GetMockGitDB ();
-			data.IsVerbose = true;
+			data.Settings.IsVerbose = true;
 
 			data.WriteSummary ();
 

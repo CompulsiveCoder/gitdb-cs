@@ -13,11 +13,11 @@ namespace gitdb.Data
 
         public List<BaseEntity> PendingDelete = new List<BaseEntity>();
 
-        public DataDeleter (DirectoryContext location, DataIdManager idManager, DataLinker linker)
+        public DataDeleter (GitDBSettings settings, DataIdManager idManager, DataLinker linker) : base(settings)
 		{
 			IdManager = idManager;
-            Namer = new FileNamer (location);
 			Linker = linker;
+            Namer = new FileNamer (settings.Location);
 		}
 
 		public void Delete(BaseEntity entity)

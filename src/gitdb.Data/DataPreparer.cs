@@ -5,7 +5,7 @@ namespace gitdb.Data
 {
 	public class DataPreparer : BaseDataAdapter
 	{
-		public DataPreparer ()
+        public DataPreparer (GitDBSettings settings) : base(settings)
 		{
 		}
 

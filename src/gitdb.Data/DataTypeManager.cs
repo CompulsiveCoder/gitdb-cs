@@ -44,7 +44,7 @@ namespace gitdb.Data
 
 		public void Add(Type type)
 		{
-			Add (type.Name, type.AssemblyQualifiedName);
+            Add (type.FullName, type.FullName + ", " + type.Assembly.GetName().Name);
 		}
 
 		public void Add(string typeName, string typeFullName)
@@ -76,7 +76,7 @@ namespace gitdb.Data
 
 		public void EnsureExists(Type type)
 		{
-			EnsureExists (type.Name, type.AssemblyQualifiedName);
+			EnsureExists (type.FullName, type.AssemblyQualifiedName);
 		}
 
 		public void EnsureExists(string typeName, string typeFullName)

@@ -23,7 +23,7 @@ namespace gitdb.Data.Tests.Unit
 
             var typesString = File.ReadAllText(filePath);
 
-            var expectedTypesString = exampleType.Name + typeManager.TypeNamesParser.PairSeparator + exampleType.AssemblyQualifiedName;
+            var expectedTypesString = exampleType.FullName + typeManager.TypeNamesParser.PairSeparator + exampleType.FullName + ", " + exampleType.Assembly.GetName().Name;
 
 			Assert.AreEqual (expectedTypesString, typesString);
 		}
@@ -37,7 +37,7 @@ namespace gitdb.Data.Tests.Unit
 
 			var exampleType = typeof(ExampleArticle);
 
-            var typesString = exampleType.Name + typeManager.TypeNamesParser.PairSeparator + exampleType.AssemblyQualifiedName;
+            var typesString = exampleType.Name + typeManager.TypeNamesParser.PairSeparator + exampleType.FullName + ", " + exampleType.Assembly.GetName().Name;
 
             var filePath = directoryContext.GetPath (typeManager.TypesFileName);
 
@@ -59,7 +59,7 @@ namespace gitdb.Data.Tests.Unit
 
 			var exampleType = typeof(ExampleArticle);
 
-            var typesString = exampleType.Name + typeManager.TypeNamesParser.PairSeparator + exampleType.AssemblyQualifiedName;
+            var typesString = exampleType.Name + typeManager.TypeNamesParser.PairSeparator + exampleType.FullName + ", " + exampleType.Assembly.GetName().Name;
 
             var filePath = directoryContext.GetPath (typeManager.TypesFileName);
 
@@ -72,7 +72,7 @@ namespace gitdb.Data.Tests.Unit
 
 			var fullTypeName = types [exampleType.Name];
 
-			Assert.AreEqual (exampleType.AssemblyQualifiedName, fullTypeName);
+            Assert.AreEqual (exampleType.FullName + ", " + exampleType.Assembly.GetName().Name, fullTypeName);
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace gitdb.Data.Tests.Unit
 
 			var context = GetTestDataContext ();
 
-            var checker = new MockDataChecker (context.Location, context.Reader, context.Settings);
+            var checker = new MockDataChecker (context.Settings, context.Reader);
             checker.ReturnValue = false;
 
             context.Checker = checker;
@@ -33,7 +33,6 @@ namespace gitdb.Data.Tests.Unit
 			);
 
 			var saver = new DataSaver (
-                context.Location,
 				context.Settings,
 				context.TypeManager,
 				context.IdManager,
@@ -50,6 +49,9 @@ namespace gitdb.Data.Tests.Unit
 
             Assert.IsTrue (File.Exists (filePath));
 
+            var typesFilePath = Path.Combine(context.Location.DataDirectory, context.TypeManager.TypesFileName);
+
+            Assert.IsTrue(File.Exists(typesFilePath));
 		}
 
 		// TODO: Should this be moved to integration tests?
@@ -72,7 +74,6 @@ namespace gitdb.Data.Tests.Unit
 			);
 
             var saver = new DataSaver (
-                context.Location,
 				context.Settings,
 				context.TypeManager,
 				context.IdManager,

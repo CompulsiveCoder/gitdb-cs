@@ -6,6 +6,12 @@ namespace gitdb.Data
 {
 	public class BaseDataAdapter
 	{
+        public GitDBSettings Settings { get;set; }
+
+        public BaseDataAdapter(GitDBSettings settings)
+        {
+            Settings = settings;
+        }
 	}
 }
 

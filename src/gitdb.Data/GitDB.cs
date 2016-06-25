@@ -3,6 +3,7 @@ using gitdb.Data;
 using gitdb.Entities;
 using System.Collections.Generic;
 using gitter;
+using System.IO;
 
 namespace gitdb.Data
 {
@@ -25,54 +26,63 @@ namespace gitdb.Data
 
 		public GitDBSettings Settings = new GitDBSettings();
 
-		public bool IsVerbose = true;
-
-        public DirectoryContext Location { get; set; }
-
-        public Gitter Gitter = new Gitter();
+        public Gitter Gitter;
 
         public GitDB (string workingDirectory)
-		{
-            Construct (workingDirectory);
-		}
+        {
+            Construct (workingDirectory, null);
+        }
 
-        public void Construct(string workingDirectory)
-		{
-            Location = new DirectoryContext (workingDirectory);
+        public GitDB (string workingDirectory, GitDBSettings settings)
+        {
+            Construct (workingDirectory, settings);
+        }
 
-            TypeManager = new DataTypeManager (Location);
-			IdManager = new DataIdManager (Location);
+        public void Construct(string workingDirectory, GitDBSettings settings)
+		{
+            if (settings != null)
+                Settings = settings;
+
+            if (Settings.IsVerbose) {
+                Console.WriteLine ("Constructing GitDB:");
+                Console.WriteLine ("  " + workingDirectory);
+            }
+
+            TypeManager = new DataTypeManager (Settings.Location);
+            IdManager = new DataIdManager (Settings.Location);
 
 			EntityLinker = new EntityLinker ();
 
-            var preparer = new DataPreparer ();
+            var preparer = new DataPreparer (Settings);
 			Preparer = preparer;
 
-			var reader = new DataReader (Location, TypeManager, IdManager);
+			var reader = new DataReader (Settings, TypeManager, IdManager);
 			Reader = reader;
 
-			var lister = new DataLister (TypeManager, IdManager, reader);
+			var lister = new DataLister (Settings, TypeManager, IdManager, reader);
 			Lister = lister;
 
-            var checker = new DataChecker (Location, reader, Settings);
+            var checker = new DataChecker (Settings, reader);
 			Checker = checker;
 
-            var saver = new DataSaver (Location, Settings, TypeManager, IdManager, preparer, null, checker); // The linker argument is null because it needs to be set after it's created below
+            var saver = new DataSaver (Settings, TypeManager, IdManager, preparer, null, checker); // The linker argument is null because it needs to be set after it's created below
 			Saver = saver;
 
-            var updater = new DataUpdater (Location, Settings, null, preparer, checker); // The linker argument is null because it needs to be set after it's created below
+            var updater = new DataUpdater (Settings, null, preparer, checker); // The linker argument is null because it needs to be set after it's created below
 			Updater = updater;
 
 			var linker = new DataLinker (Settings, reader, saver, updater, checker, EntityLinker);
 			Linker = linker;
 
-			var deleter = new DataDeleter (Location, IdManager, linker);
+			var deleter = new DataDeleter (Settings, IdManager, linker);
 			Deleter = deleter;
 
 			// TODO: Is there a way to avoid this messy hack?
 			// Make sure the linker is set to the saver and updater
 			saver.Linker = linker;
 			updater.Linker = linker;
+
+            Gitter = new Gitter ();
 		}
 
 		public void Open()
@@ -81,7 +91,7 @@ namespace gitdb.Data
 
 		public void SaveOrUpdate(BaseEntity entity)
 		{
-			if (IsVerbose)
+			if (Settings.IsVerbose)
 				Console.WriteLine ("Save/update");
 			
 			if (Exists (entity))
@@ -133,7 +143,7 @@ namespace gitdb.Data
 
 		public void CommitPending()
 		{
-			if (IsVerbose)
+			if (Settings.IsVerbose)
 				Console.WriteLine ("Committing pending entities");
 			
 			// TODO: Remove if not needed
@@ -219,7 +229,14 @@ namespace gitdb.Data
 
         public void Init()
         {
-            Gitter.Init (Location.WorkingDirectory);
+            if (!Directory.Exists (Settings.Location.DataDirectory))
+                Directory.CreateDirectory (Settings.Location.DataDirectory);
+
+            var gitDir = Path.Combine (Settings.Location.DataDirectory, ".git");
+            var isInitialized = Directory.Exists (gitDir);
+            if (!isInitialized) {
+                Gitter.Init (Settings.Location.DataDirectory);
+            }
         }
 
         public void Commit()

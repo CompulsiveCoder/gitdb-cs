@@ -6,9 +6,9 @@ namespace gitdb.Data
 {
     public class TypeNamesParser
     {
-        public char DefinitionSeparator = '|';
+        public char DefinitionSeparator = '\n';
 
-        public char PairSeparator = '-';
+        public char PairSeparator = ':';
 
         public TypeNamesParser ()
         {

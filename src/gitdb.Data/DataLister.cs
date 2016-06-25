@@ -10,7 +10,7 @@ namespace gitdb.Data
 		public DataIdManager IdManager;
 		public DataReader Reader;
 
-		public DataLister (DataTypeManager typeManager, DataIdManager idManager, DataReader reader)
+        public DataLister (GitDBSettings settings, DataTypeManager typeManager, DataIdManager idManager, DataReader reader) : base(settings)
 		{
 			TypeManager = typeManager;
 			IdManager = idManager;
@@ -21,7 +21,7 @@ namespace gitdb.Data
 		public T[] Get<T>()
             where T : BaseEntity
 		{
-			var ids = IdManager.GetIds(typeof(T).Name);
+			var ids = IdManager.GetIds(typeof(T).FullName);
 
 			var entities = new List<T> ();
 			foreach (string id in ids) {

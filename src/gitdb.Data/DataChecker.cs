@@ -12,20 +12,18 @@ namespace gitdb.Data
 
         public FileNamer Namer;
 
-		public DataChecker (DirectoryContext location, DataReader reader, GitDBSettings settings)
+        public DataChecker (GitDBSettings settings, DataReader reader)
 		{
 			Settings = settings;
 			Reader = reader;
-            Namer = new FileNamer (location);
+            Namer = new FileNamer (settings.Location);
 		}
 
         public virtual bool Exists(BaseEntity entity)
 		{
 			if (Settings.IsVerbose)
-				Console.WriteLine ("Checking if entity exists: " + entity.GetType().Name);
-
-			var entityType = entity.GetType ();
-
+				Console.WriteLine ("Checking if entity exists: " + entity.TypeName);
+            
             var filePath = Namer.CreateFilePath (entity.TypeName, entity.Id);
 
             var exists = File.Exists (filePath);

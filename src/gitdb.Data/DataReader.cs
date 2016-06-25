@@ -11,17 +11,17 @@ namespace gitdb.Data
 
         public FileNamer Namer;
 
-		public DataReader (DirectoryContext location, DataTypeManager typeManager, DataIdManager idManager)
+        public DataReader (GitDBSettings settings, DataTypeManager typeManager, DataIdManager idManager) : base(settings)
 		{
 			TypeManager = typeManager;
 			IdManager = idManager;
-            Namer = new FileNamer (location);
+            Namer = new FileNamer (settings.Location);
 		}
 
 		public T Read<T>(string entityId)
             where T : BaseEntity
 		{
-            return (T)Read (typeof(T).Name, entityId);
+            return (T)Read (typeof(T).FullName, entityId);
 		}
 
 		public BaseEntity Read(string entityTypeName, string entityId)
@@ -38,7 +38,7 @@ namespace gitdb.Data
 			if (entityType == null)
 				throw new ArgumentNullException ("entityType");
 			
-            var filePath = Namer.CreateFileName(entityType.Name, entityId);
+            var filePath = Namer.CreateFileName(entityType.FullName, entityId);
 
             if (!File.Exists (filePath))
                 return null;

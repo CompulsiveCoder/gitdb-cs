@@ -7,8 +7,6 @@ namespace gitdb.Data
 {
 	public class DataUpdater : BaseDataAdapter
 	{
-		public GitDBSettings Settings;
-
 		public DataChecker Checker;
 		public DataLinker Linker;
         public DataPreparer Preparer;
@@ -16,13 +14,13 @@ namespace gitdb.Data
 
 		public List<BaseEntity> PendingUpdate = new List<BaseEntity>();
 
-        public DataUpdater (DirectoryContext location, GitDBSettings settings, DataLinker linker, DataPreparer preparer, DataChecker checker)
+        public DataUpdater (GitDBSettings settings, DataLinker linker, DataPreparer preparer, DataChecker checker) : base(settings)
 		{
 			Settings = settings;
 			Linker = linker;
 			Preparer = preparer;
             Checker = checker;
-            Namer = new FileNamer (location);
+            Namer = new FileNamer (settings.Location);
 		}
 
 		public void Update(BaseEntity entity)
