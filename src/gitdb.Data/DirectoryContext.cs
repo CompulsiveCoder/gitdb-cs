@@ -16,6 +16,11 @@ namespace gitdb.Data
         {
             return Path.Combine(DataDirectory, relativePath);
         }
+
+        public string GetRelativePath(string fullPath)
+        {
+            return fullPath.Replace (DataDirectory, "").TrimStart(Path.DirectorySeparatorChar);
+        }
     }
 }
 

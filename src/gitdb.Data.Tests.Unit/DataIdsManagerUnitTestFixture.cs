@@ -11,19 +11,19 @@ namespace gitdb.Data.Tests.Unit
         [Test]
         public void Test_GetIds()
         {
-            var location = GetDirectoryContext ();
+            var context = GetTestDataContext ();
 
             var entityType = typeof(ExampleArticle);
 
             var fileName = entityType.FullName + "-Ids";
 
-            var filePath = location.GetPath (fileName);
+            var filePath = context.Location.GetPath (fileName);
 
             var idsString = Guid.NewGuid ().ToString () + "," + Guid.NewGuid ().ToString ();
 
             File.WriteAllText (filePath, idsString);
 
-            var idManager = new DataIdManager (location);
+            var idManager = new DataIdManager (context.Settings, context.Gitter);
 
             var ids = idManager.GetIds (entityType.FullName);
 
@@ -33,19 +33,19 @@ namespace gitdb.Data.Tests.Unit
         [Test]
         public void Test_SetIds()
         {
-            var location = GetDirectoryContext ();
+            var context = GetTestDataContext ();
 
             var entityType = typeof(ExampleArticle);
 
             var fileName = entityType.FullName + "-Ids";
 
-            var filePath = location.GetPath (fileName);
+            var filePath = context.Location.GetPath (fileName);
 
             var ids = new string[]{Guid.NewGuid ().ToString (), Guid.NewGuid ().ToString ()};
 
             //File.WriteAllText (filePath, idsString);
 
-            var idManager = new DataIdManager (location);
+            var idManager = new DataIdManager (context.Settings, context.Gitter);
 
             idManager.SetIds (entityType.FullName, ids);
 

@@ -2,21 +2,28 @@
 using System.Collections.Generic;
 using gitdb.Entities;
 using System.IO;
+using gitter;
 
 namespace gitdb.Data
 {
 	public class DataIdManager
     {
-        public DirectoryContext Context { get;set; }
+        public GitDBSettings Settings { get;set; }
+
+        public Gitter Gitter { get; set; }
 
         public DataIdsParser IdsParser = new DataIdsParser ();
 
-        public DataIdManager (DirectoryContext context)
+        public DataIdManager (GitDBSettings settings, Gitter gitter)
         {
-            if (context == null)
-                throw new ArgumentNullException ("context");
+            if (settings == null)
+                throw new ArgumentNullException ("settings");
 
-            Context = context;
+            if (gitter == null)
+                throw new ArgumentNullException ("gitter");
+
+            Settings = settings;
+            Gitter = gitter;
         }
 
 		public void Add(BaseEntity entity)
@@ -41,7 +48,7 @@ namespace gitdb.Data
 
 		public string[] GetIds(string entityType)
         {
-            var filePath = Context.GetPath (entityType + "-Ids");
+            var filePath = Settings.Location.GetPath (entityType + "-Ids");
 
             if (File.Exists (filePath)) {
                 var content = File.ReadAllText (filePath);
@@ -55,11 +62,21 @@ namespace gitdb.Data
 
 		public void SetIds(string entityType, string[] ids)
         {
-            var filePath = Context.GetPath (entityType + "-Ids");
+            var filePath = Settings.Location.GetPath (entityType + "-Ids");
 
             var idsString = IdsParser.CompileIds (ids);
 
+            var isNewFile = !File.Exists (filePath);
+
             File.WriteAllText (filePath, idsString);
+
+            if (isNewFile) {
+                var relativePath = Settings.Location.GetRelativePath(filePath);
+
+                var repo = Gitter.Open (Settings.Location.DataDirectory);
+
+                repo.Add(relativePath);
+            }
 		}
 
 		public string[] ConvertToStringArray(Guid[] ids)

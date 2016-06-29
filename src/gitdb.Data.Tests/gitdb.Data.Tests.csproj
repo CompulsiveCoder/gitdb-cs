@@ -34,6 +34,9 @@
     </Reference>
     <Reference Include="System.Xml.Serialization" />
     <Reference Include="System.Xml" />
+    <Reference Include="gitter">
+      <HintPath>..\..\mod\gitter-cs\bin\Release\gitter.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

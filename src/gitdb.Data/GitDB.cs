@@ -28,6 +28,7 @@ namespace gitdb.Data
 
         public Gitter Gitter;
 
+        #region Construction
         public GitDB (string workingDirectory)
         {
             Construct (new GitDBSettings (workingDirectory));
@@ -50,8 +51,10 @@ namespace gitdb.Data
                 Console.WriteLine ("  " + settings.Location.DataDirectory);
             }
 
-            TypeManager = new DataTypeManager (Settings.Location);
-            IdManager = new DataIdManager (Settings.Location);
+            Gitter = new Gitter ();
+
+            TypeManager = new DataTypeManager (Settings, Gitter);
+            IdManager = new DataIdManager (Settings, Gitter);
 
 			EntityLinker = new EntityLinker ();
 
@@ -67,7 +70,7 @@ namespace gitdb.Data
             var checker = new DataChecker (Settings, reader);
 			Checker = checker;
 
-            var saver = new DataSaver (Settings, TypeManager, IdManager, preparer, null, checker); // The linker argument is null because it needs to be set after it's created below
+            var saver = new DataSaver (Settings, TypeManager, IdManager, preparer, null, checker, Gitter); // The linker argument is null because it needs to be set after it's created below
 			Saver = saver;
 
             var updater = new DataUpdater (Settings, null, preparer, checker); // The linker argument is null because it needs to be set after it's created below
@@ -86,11 +89,9 @@ namespace gitdb.Data
 
             Gitter = new Gitter ();
 		}
+        #endregion
 
-		public void Open()
-		{
-		}
-
+        #region Save/Update/Delete
 		public void SaveOrUpdate(BaseEntity entity)
 		{
 			if (Settings.IsVerbose)
@@ -118,8 +119,7 @@ namespace gitdb.Data
 		{
 			Saver.Save (entity, saveLinkedEntities);
 
-			// TODO: Remove if not needed
-			CommitPending ();
+            ApplyPending ();
 		}
 
 		public void Update(BaseEntity[] entities)
@@ -133,29 +133,18 @@ namespace gitdb.Data
 		{
 			Updater.Update (entity);
 
-			CommitPending ();
+			ApplyPending ();
 		}
 
 		public void Delete(BaseEntity entity)
 		{
 			Deleter.Delete (entity);
 
-			CommitPending ();
+			ApplyPending ();
 		}
+        #endregion
 
-		public void CommitPending()
-		{
-			if (Settings.IsVerbose)
-				Console.WriteLine ("Committing pending entities");
-			
-			// TODO: Remove if not needed
-			Saver.CommitPendingSaves ();
-
-			Updater.CommitPendingUpdates ();
-
-			Deleter.CommitPendingDeletes ();
-		}
-
+        #region Get
 		public T Get<T>(string id)
             where T : BaseEntity
 		{
@@ -182,6 +171,19 @@ namespace gitdb.Data
 		{
 			return Reader.Read (entityType, entityId);
 		}
+        #endregion
+
+        protected void ApplyPending()
+        {
+            if (Settings.IsVerbose)
+                Console.WriteLine ("Applying pending operations");
+
+            Saver.CommitPendingSaves ();
+
+            Updater.CommitPendingUpdates ();
+
+            Deleter.CommitPendingDeletes ();
+        }
 
 		public Type GetType(string typeName)
 		{
@@ -243,7 +245,8 @@ namespace gitdb.Data
 
         public void Commit()
         {
-            Gitter.Commit ();
+            var repo = Gitter.Open (Settings.Location.DataDirectory);
+            repo.Commit ();
         }
 	}
 }

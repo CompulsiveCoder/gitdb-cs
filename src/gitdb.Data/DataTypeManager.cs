@@ -3,23 +3,31 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Linq;
+using gitter;
 
 namespace gitdb.Data
 {
 	public class DataTypeManager
 	{
-        public DirectoryContext Context { get;set; }
-
         public TypeNamesParser TypeNamesParser = new TypeNamesParser();
 
         public string TypesFileName = "types";
 
-        public DataTypeManager (DirectoryContext context)
-		{
-            if (context == null)
-                throw new ArgumentNullException ("context");
-			
-            Context = context;
+        public GitDBSettings Settings { get;set; }
+
+        public Gitter Gitter { get; set; }
+
+        public DataTypeManager (GitDBSettings settings, Gitter gitter)
+        {
+            if (settings == null)
+                throw new ArgumentNullException ("settings");
+            
+            if (gitter == null)
+                throw new ArgumentNullException ("gitter");
+
+            Settings = settings;
+
+            Gitter = gitter;
 		}
 
 		public string[] GetTypeNames()
@@ -30,7 +38,7 @@ namespace gitdb.Data
 
 		public Dictionary<string, string> GetTypes()
         {
-            var filePath = Context.GetPath (TypesFileName);
+            var filePath = Settings.Location.GetPath (TypesFileName);
 
             if (File.Exists (filePath)) {
                 var content = File.ReadAllText (filePath);
@@ -62,9 +70,19 @@ namespace gitdb.Data
         {
             var typesString = TypeNamesParser.CompileTypeDefinitions (typeDefinitions);
 
-            var filePath = Context.GetPath (TypesFileName);
+            var filePath = Settings.Location.GetPath (TypesFileName);
+
+            var isNewFile = !File.Exists (filePath);
 
             File.WriteAllText (filePath, typesString);
+
+            if (isNewFile) {
+                var relativePath = Settings.Location.GetRelativePath(filePath);
+
+                var repo = Gitter.Open (Settings.Location.DataDirectory);
+
+                repo.Add(relativePath);
+            }
 		}
 
 		public bool Exists(string typeName)

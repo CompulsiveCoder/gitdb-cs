@@ -1,5 +1,6 @@
 ﻿using System;
 using gitdb.Entities;
+using gitter;
 
 namespace gitdb.Data.Tests
 {
@@ -19,6 +20,8 @@ namespace gitdb.Data.Tests
 		public DataReader Reader { get;set; }
 		public DataChecker Checker { get;set; }
 
+        public Gitter Gitter { get;set; }
+
 		public EntityLinker EntityLinker { get; set; }
 
         public DirectoryContext Location { get; set; }
@@ -30,8 +33,10 @@ namespace gitdb.Data.Tests
 			Settings = new GitDBSettings ();
 			Settings.IsVerbose = true;
 
-			IdManager = new DataIdManager (Location);
-            TypeManager = new DataTypeManager (Location);
+            Gitter = new Gitter ();
+
+            IdManager = new DataIdManager (Settings, Gitter);
+            TypeManager = new DataTypeManager (Settings, Gitter);
 
 			EntityLinker = new EntityLinker ();
 
@@ -44,7 +49,7 @@ namespace gitdb.Data.Tests
 			var checker = new DataChecker (Settings, reader);
 			Checker = checker;
 
-            var saver = new DataSaver (Settings, TypeManager, IdManager, preparer, null, checker); // The linker argument is null because it needs to be set after it's created below
+            var saver = new DataSaver (Settings, TypeManager, IdManager, preparer, null, checker, Gitter); // The linker argument is null because it needs to be set after it's created below
 			Saver = saver;
 
 			var updater = new DataUpdater (Settings, null, preparer, checker); // The linker argument is null because it needs to be set after it's created below

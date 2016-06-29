@@ -11,15 +11,15 @@ namespace gitdb.Data.Tests.Unit
 		[Test]
 		public void Test_Add()
 		{
-            var directoryContext = GetDirectoryContext ();
+            var context = GetTestDataContext ();
 
-            var typeManager = new DataTypeManager (directoryContext);
+            var typeManager = new DataTypeManager (context.Settings, context.Gitter);
 
 			var exampleType = typeof(ExampleArticle);
 
 			typeManager.Add (exampleType);
 
-            var filePath = directoryContext.GetPath (typeManager.TypesFileName);
+            var filePath = context.Location.GetPath (typeManager.TypesFileName);
 
             var typesString = File.ReadAllText(filePath);
 
@@ -31,15 +31,15 @@ namespace gitdb.Data.Tests.Unit
 		[Test]
 		public void Test_GetType()
         {
-            var directoryContext = GetDirectoryContext ();
+            var context = GetTestDataContext ();
 
-            var typeManager = new DataTypeManager (directoryContext);
+            var typeManager = new DataTypeManager (context.Settings, context.Gitter);
 
 			var exampleType = typeof(ExampleArticle);
 
             var typesString = exampleType.Name + typeManager.TypeNamesParser.PairSeparator + exampleType.FullName + ", " + exampleType.Assembly.GetName().Name;
 
-            var filePath = directoryContext.GetPath (typeManager.TypesFileName);
+            var filePath = context.Location.GetPath (typeManager.TypesFileName);
 
             File.WriteAllText(filePath, typesString);
 
@@ -53,15 +53,15 @@ namespace gitdb.Data.Tests.Unit
 		[Test]
 		public void Test_GetTypes()
         {
-            var directoryContext = GetDirectoryContext ();
+            var context = GetTestDataContext ();
 
-            var typeManager = new DataTypeManager (directoryContext);
+            var typeManager = new DataTypeManager (context.Settings, context.Gitter);
 
 			var exampleType = typeof(ExampleArticle);
 
             var typesString = exampleType.Name + typeManager.TypeNamesParser.PairSeparator + exampleType.FullName + ", " + exampleType.Assembly.GetName().Name;
 
-            var filePath = directoryContext.GetPath (typeManager.TypesFileName);
+            var filePath = context.Location.GetPath (typeManager.TypesFileName);
 
             File.WriteAllText(filePath, typesString);
 			var types = typeManager.GetTypes();

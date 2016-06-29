@@ -38,7 +38,8 @@ namespace gitdb.Data.Tests.Unit
 				context.IdManager,
 				context.Preparer,
 				mockLinker,
-				context.Checker);
+				context.Checker,
+                context.Gitter);
 
 			Console.WriteLine ("Executing test");
 
@@ -79,7 +80,8 @@ namespace gitdb.Data.Tests.Unit
 				context.IdManager,
 				context.Preparer,
 				mockLinker,
-				context.Checker);
+				context.Checker,
+                context.Gitter);
 
 			// Save the entity
 			saver.Save (entity);

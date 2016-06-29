@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Web.Script.Serialization;
 using gitdb.Entities;
 using System.Collections.Generic;
+using gitter;
 
 namespace gitdb.Data
 {
@@ -15,10 +16,11 @@ namespace gitdb.Data
 		public DataChecker Checker;
 		public DataLinker Linker;
         public FileNamer Namer;
+        public Gitter Gitter;
 
 		public List<BaseEntity> PendingSave = new List<BaseEntity>();
 
-        public DataSaver (GitDBSettings settings, DataTypeManager typeManager, DataIdManager idManager, DataPreparer preparer, DataLinker linker, DataChecker checker) : base(settings)
+        public DataSaver (GitDBSettings settings, DataTypeManager typeManager, DataIdManager idManager, DataPreparer preparer, DataLinker linker, DataChecker checker, Gitter gitter) : base(settings)
 		{
 			Settings = settings;
 			IdManager = idManager;
@@ -26,6 +28,7 @@ namespace gitdb.Data
 			Preparer = preparer;
 			Checker = checker;
 			Linker = linker;
+            Gitter = gitter;
             Namer = new FileNamer (settings.Location);
 		}
 
@@ -62,7 +65,17 @@ namespace gitdb.Data
 
 			var json = Preparer.PrepareForStorage (entity).ToJson ();
 
+            var isNewFile = !File.Exists (filePath);
+
             File.WriteAllText (filePath, json);
+
+            if (isNewFile) {
+                var relativePath = Settings.Location.GetRelativePath(filePath);
+
+                var repo = Gitter.Open (Settings.Location.DataDirectory);
+
+                repo.Add(relativePath);
+            }
 
 			IdManager.Add (entity);
 		}
