@@ -88,6 +88,8 @@ namespace gitdb.Data
 			updater.Linker = linker;
 
             Gitter = new Gitter ();
+
+            EnsureRepositoryExists ();
 		}
         #endregion
 
@@ -247,6 +249,12 @@ namespace gitdb.Data
         {
             var repo = Gitter.Open (Settings.Location.DataDirectory);
             repo.Commit ();
+        }
+
+        public void EnsureRepositoryExists()
+        {
+            if (!Gitter.IsRepository (Settings.Location.DataDirectory))
+                Gitter.Init (Settings.Location.DataDirectory);
         }
 	}
 }
