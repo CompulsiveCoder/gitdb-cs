@@ -36,6 +36,10 @@ namespace gitdb.Data.Tests.Integration
 			var foundEntity = data.Get<SimpleEntity> (entity.Id);
 
 			Assert.IsNull (foundEntity);
+
+            var ids = data.IdManager.GetIds (entity.TypeName);
+
+            Assert.AreEqual (0, ids.Length);
 		}
 	}
 }

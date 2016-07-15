@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace gitdb.Data
 {
@@ -12,7 +13,9 @@ namespace gitdb.Data
 
         public string[] ParseIds(string idsString)
         {
-            return idsString.Split(IdSeparator);
+            return (from id in idsString.Split (IdSeparator)
+                             where !String.IsNullOrEmpty (id.ToString ())
+                             select id).ToArray ();
         }
 
         public string CompileIds(string[] ids)
