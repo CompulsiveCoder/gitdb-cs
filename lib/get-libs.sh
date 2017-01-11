@@ -17,7 +17,7 @@ if [ -f $PARENT_LIB_DIR/nuget.exe ]; then
     cp -vr $d $LIB_DIR/$d
    done
 
-   cd $DIR
+   cd $LIB_DIR
 fi
 
 NUGET_FILE="nuget.exe"
