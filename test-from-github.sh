@@ -18,10 +18,10 @@ DIR=$PWD
 
 # If the .tmp/gitdb directory exists then remove it
 if [ -d ".tmp/gitdb-cs" ]; then
-    rm .tmp/gitdb -rf
+    rm .tmp/gitdb-cs -rf
 fi
 
-git clone https://github.com/CompulsiveCoder/gitdb-cs.git .tmp/gitdb --branch $BRANCH
+git clone https://github.com/CompulsiveCoder/gitdb-cs.git .tmp/gitdb-cs --branch $BRANCH
 cd .tmp/gitdb-cs && \
 sh init-build-test.sh && \
 cd $DIR && \
