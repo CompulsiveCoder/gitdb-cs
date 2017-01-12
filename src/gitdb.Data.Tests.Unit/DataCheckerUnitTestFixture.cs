@@ -5,7 +5,7 @@ using System.IO;
 
 namespace gitdb.Data.Tests.Unit
 {
-	[TestFixture]
+    [TestFixture(Category="Unit")]
 	public class DataCheckerUnitTestFixture : BaseDataUnitTestFixture
 	{
 		[Test]

@@ -40,7 +40,7 @@ namespace gitdb.Data
 		{
 			var ids = new List<string>(GetIds (entity.TypeName));
 
-			if (!ids.Contains (entity.Id))
+			if (ids.Contains (entity.Id))
 				ids.Remove (entity.Id);
 
             SetIds (entity.TypeName, ids.ToArray ());
