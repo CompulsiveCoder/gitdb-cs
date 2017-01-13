@@ -94,7 +94,7 @@ namespace gitdb.Data
         #endregion
 
         #region Save/Update/Delete
-		public void SaveOrUpdate(BaseEntity entity)
+		public virtual void SaveOrUpdate(BaseEntity entity)
 		{
 			if (Settings.IsVerbose)
 				Console.WriteLine ("Save/update");
@@ -105,40 +105,40 @@ namespace gitdb.Data
 				Save (entity);
 		}
 
-		public void Save(BaseEntity[] entities)
+        public virtual void Save(BaseEntity[] entities)
 		{
 			foreach (var entity in entities) {
 				Save (entity);
 			}
 		}
 
-		public void Save(BaseEntity entity)
+        public virtual void Save(BaseEntity entity)
 		{
 			Save (entity, false);
 		}
 
-		public void Save(BaseEntity entity, bool saveLinkedEntities)
+        public virtual void Save(BaseEntity entity, bool saveLinkedEntities)
 		{
 			Saver.Save (entity, saveLinkedEntities);
 
             ApplyPending ();
 		}
 
-		public void Update(BaseEntity[] entities)
+        public virtual void Update(BaseEntity[] entities)
 		{
 			foreach (var entity in entities) {
 				Update (entity);
 			}
 		}
 
-		public void Update(BaseEntity entity)
+        public virtual void Update(BaseEntity entity)
 		{
 			Updater.Update (entity);
 
 			ApplyPending ();
 		}
 
-		public void Delete(BaseEntity entity)
+        public virtual void Delete(BaseEntity entity)
 		{
 			Deleter.Delete (entity);
 
@@ -147,29 +147,29 @@ namespace gitdb.Data
         #endregion
 
         #region Get
-		public T Get<T>(string id)
+        public virtual T Get<T>(string id)
             where T : BaseEntity
 		{
 			return Reader.Read<T> (id);
 		}
 
-        public T[] Get<T>()
+        public virtual T[] Get<T>()
             where T : BaseEntity
 		{
 			return Lister.Get<T> ();
 		}
 
-		public BaseEntity[] GetAll()
+        public virtual BaseEntity[] GetAll()
 		{
 			return Lister.GetAll();
 		}
 
-		public BaseEntity Get(string entityTypeName, string entityId)
+        public virtual BaseEntity Get(string entityTypeName, string entityId)
 		{
 			return Reader.Read (entityTypeName, entityId);
 		}
 
-		public BaseEntity Get(Type entityType, string entityId)
+        public virtual BaseEntity Get(Type entityType, string entityId)
 		{
 			return Reader.Read (entityType, entityId);
 		}
