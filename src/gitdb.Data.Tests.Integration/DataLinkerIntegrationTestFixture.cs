@@ -55,7 +55,7 @@ namespace gitdb.Data.Tests.Integration
 			author.Articles = new ExampleArticle[]{ article };
 			article.Author = author;
 
-			var data = GetMockGitDB ();
+			var data = GetGitDB ();
 
 			data.Settings.IsVerbose = true;
 
@@ -139,7 +139,7 @@ namespace gitdb.Data.Tests.Integration
 			Console.WriteLine ("Preparing test");
 			Console.WriteLine ("");
 
-			var data = GetMockGitDB ();
+			var data = GetGitDB ();
 
 			var invoice = new ExampleInvoice ();
 			var invoiceItem = new ExampleInvoiceItem (invoice);

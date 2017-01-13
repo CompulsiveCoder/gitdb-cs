@@ -18,7 +18,7 @@ namespace gitdb.Data.Tests.Integration
 
 			Console.WriteLine ("Executing test");
 
-			var data = GetMockGitDB ();
+			var data = GetGitDB ();
 
 			// Save the entity
 			data.Save (entity);
@@ -35,7 +35,7 @@ namespace gitdb.Data.Tests.Integration
 			// Create the entity
 			var entity = new SimpleEntity ();
 
-			var data = GetMockGitDB ();
+			var data = GetGitDB ();
 
 			// Save the entity
 			data.Save (entity);
