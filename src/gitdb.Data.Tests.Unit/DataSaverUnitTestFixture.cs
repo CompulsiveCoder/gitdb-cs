@@ -73,7 +73,7 @@ namespace gitdb.Data.Tests.Unit
 				context.Checker,
 				context.EntityLinker
 			);
-
+                
             var saver = new DataSaver (
 				context.Settings,
 				context.TypeManager,
