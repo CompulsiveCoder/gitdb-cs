@@ -45,11 +45,6 @@ namespace gitdb.Data.Tests
             }
         }
 
-		public TestContext GetTestDataContext()
-		{
-            return new TestContext (Environment.CurrentDirectory);
-		}
-
         public DirectoryContext GetDirectoryContext()
         {
             return new DirectoryContext (Environment.CurrentDirectory);
@@ -60,7 +55,14 @@ namespace gitdb.Data.Tests
             var data = new GitDB (Environment.CurrentDirectory);
 
 			return data;
-		}
+        }
+
+        public GitDB GetMockGitDB()
+        {
+            var data = new MockGitDB (Environment.CurrentDirectory);
+
+            return data;
+        }
 	}
 }
 

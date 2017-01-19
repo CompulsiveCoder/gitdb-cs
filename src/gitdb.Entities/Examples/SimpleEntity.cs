@@ -1,15 +1,23 @@
 ﻿using System;
 
-namespace gitdb.Entities
+namespace gitdb.Entities.Examples
 {
 	[Serializable]
 	public class SimpleEntity : BaseEntity
-	{
-		public int NumberValue { get; set; }
+    {
+        public string Text { get; set; }
 
-		public SimpleEntity ()
-		{
-		}
+        public int Number { get; set; }
+
+        public SimpleEntity ()
+        {
+        }
+
+        public SimpleEntity(string text, int number)
+        {
+            Text = text;
+            Number = number;
+        }
 	}
 }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
-using gitdb.Entities;
 using System.IO;
+using gitdb.Entities.Examples;
 
 namespace gitdb.Data.Tests.Unit
 {
@@ -16,7 +16,7 @@ namespace gitdb.Data.Tests.Unit
 			// Create the entity
 			var entity = new SimpleEntity ();
 
-			var context = GetTestDataContext ();
+			var context = GetMockGitDB ();
 
             var checker = new MockDataChecker (context.Settings, context.Reader);
             checker.ReturnValue = false;
@@ -50,7 +50,7 @@ namespace gitdb.Data.Tests.Unit
 
             Assert.IsTrue (File.Exists (filePath));
 
-            var typesFilePath = Path.Combine(context.Location.DataDirectory, context.TypeManager.TypesFileName);
+            var typesFilePath = Path.Combine(context.Settings.Location.DataDirectory, context.TypeManager.TypesFileName);
 
             Assert.IsTrue(File.Exists(typesFilePath));
 		}
@@ -63,7 +63,7 @@ namespace gitdb.Data.Tests.Unit
 			// Create the entity
 			var entity = new SimpleEntity ();
 
-			var context = GetTestDataContext ();
+			var context = GetMockGitDB ();
 
 			var mockLinker = new MockDataLinker (
 				context.Settings,

@@ -45,7 +45,6 @@
     <Compile Include="MockDataLinker.cs" />
     <Compile Include="MockGitDB.cs" />
     <Compile Include="TemporaryDirectoryCreator.cs" />
-    <Compile Include="TestContext.cs" />
     <Compile Include="MockDataChecker.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

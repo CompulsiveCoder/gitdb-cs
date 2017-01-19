@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using gitdb.Entities;
+using gitdb.Entities.Examples;
 
 namespace gitdb.Data.Tests.Integration
 {
@@ -17,7 +17,7 @@ namespace gitdb.Data.Tests.Integration
 			// Create the entity
 			var entity = new SimpleEntity ();
 
-			entity.NumberValue = new Random ().Next (10);
+			entity.Number = new Random ().Next (10);
 
 			var data = GetMockGitDB ();
 

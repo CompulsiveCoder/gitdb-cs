@@ -115,14 +115,6 @@ namespace gitdb.Entities
 			return isEntityArray;
 		}
 
-		public bool PropertyLinksToType(BaseEntity entity, PropertyInfo property, Type targetEntityType)
-		{
-			throw new NotImplementedException ();
-			/*var summary = property.GetValue (entity);
-
-			return targetEntityType.FullName == summary.GetType().FullName;*/
-		}
-
 		public void AddReturnLink(BaseEntity entity, PropertyInfo property, BaseEntity targetEntity, string targetEntityPropertyName)
 		{
 			var targetEntityType = targetEntity.GetType ();
@@ -135,15 +127,7 @@ namespace gitdb.Entities
 
 			var newReturnLinksObject = AddEntityToObject (entity, existingReturnLinksObject, targetEntityProperty);
 
-			// TODO: Remove
-			//entity.Log.Add (new EntityLogAddEntry (entity.GetLink()));
-
-			//if (IsEntityListProperty (targetEntity, targetEntityProperty)) {
-			//	throw new NotImplementedException ();
-				//var list = (IList)`
-			//} else {
-				targetEntityProperty.SetValue (targetEntity, newReturnLinksObject);
-			//}
+		    targetEntityProperty.SetValue (targetEntity, newReturnLinksObject);
 
 			entity.IsPendingLinkCommit = true;
 		}
@@ -164,20 +148,13 @@ namespace gitdb.Entities
 				if (!EntityExists((BaseEntity[])list.ToArray(typeof(BaseEntity)), entityToAdd))
 					list.Add (entityToAdd);
 
-				// TODO: Clean up
-				//if (IsEntityArrayProperty (property))
-					return list.ToArray (entityToAdd.GetType ());
-				//else if (IsEntityListProperty (entityToAdd, property))
-				//	throw new NotImplementedException ();
+			    return list.ToArray (entityToAdd.GetType ());
 			} else
-				throw new Exception ("Invalid return link object. Must be subclass of BaseEntity or BaseEntity[] array.");
-
-			return null;
+				throw new Exception ("Invalid return link object. Must be subclass of BaseEntity or BaseEntity[] array.");            
 		}
 
 		public object RemoveEntityFromObject(BaseEntity entityToRemove, object linksObject, PropertyInfo property)
 		{
-			// If the property type is a single entity, return the new entity
 			if (IsEntityProperty(property)) {
 				return null;
 			}

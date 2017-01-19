@@ -8,13 +8,15 @@ namespace gitdb.Data
 	{
 		public DataTypeManager TypeManager;
 		public DataIdManager IdManager;
+        public PropertyIndexer Indexer;
 
         public FileNamer Namer;
 
-        public DataReader (GitDBSettings settings, DataTypeManager typeManager, DataIdManager idManager) : base(settings)
+        public DataReader (GitDBSettings settings, DataTypeManager typeManager, DataIdManager idManager, PropertyIndexer indexer) : base(settings)
 		{
 			TypeManager = typeManager;
 			IdManager = idManager;
+            Indexer = indexer;
             Namer = new FileNamer (settings.Location);
 		}
 
@@ -22,7 +24,7 @@ namespace gitdb.Data
             where T : BaseEntity
 		{
             return (T)Read (typeof(T).FullName, entityId);
-		}
+        }
 
 		public BaseEntity Read(string entityTypeName, string entityId)
 		{
@@ -67,7 +69,7 @@ namespace gitdb.Data
 			var entity = new Parser ().Parse (entityType, json);
 
 			return entity;
-		}
+        }
 	}
 }
 

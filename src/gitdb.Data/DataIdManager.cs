@@ -46,9 +46,9 @@ namespace gitdb.Data
             SetIds (entity.TypeName, ids.ToArray ());
 		}
 
-		public string[] GetIds(string entityType)
+		public string[] GetIds(string entityTypeName)
         {
-            var filePath = Settings.Location.GetPath (entityType + "-Ids");
+            var filePath = Settings.Location.GetPath (entityTypeName + "-Ids");
 
             if (File.Exists (filePath)) {
                 var content = File.ReadAllText (filePath);

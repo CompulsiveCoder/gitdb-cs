@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using gitdb.Entities;
+using gitdb.Entities.Examples;
 using System.IO;
 
 namespace gitdb.Data.Tests.Integration

@@ -11,7 +11,7 @@ namespace gitdb.Data.Tests.Unit
 		[Test]
 		public void Test_Add()
 		{
-            var context = GetTestDataContext ();
+            var context = GetMockGitDB ();
 
             var typeManager = new DataTypeManager (context.Settings, context.Gitter);
 
@@ -19,7 +19,7 @@ namespace gitdb.Data.Tests.Unit
 
 			typeManager.Add (exampleType);
 
-            var filePath = context.Location.GetPath (typeManager.TypesFileName);
+            var filePath = context.Settings.Location.GetPath (typeManager.TypesFileName);
 
             var typesString = File.ReadAllText(filePath);
 
@@ -31,7 +31,7 @@ namespace gitdb.Data.Tests.Unit
 		[Test]
 		public void Test_GetType()
         {
-            var context = GetTestDataContext ();
+            var context = GetMockGitDB ();
 
             var typeManager = new DataTypeManager (context.Settings, context.Gitter);
 
@@ -39,7 +39,7 @@ namespace gitdb.Data.Tests.Unit
 
             var typesString = exampleType.Name + typeManager.TypeNamesParser.PairSeparator + exampleType.FullName + ", " + exampleType.Assembly.GetName().Name;
 
-            var filePath = context.Location.GetPath (typeManager.TypesFileName);
+            var filePath = context.Settings.Location.GetPath (typeManager.TypesFileName);
 
             File.WriteAllText(filePath, typesString);
 
@@ -53,7 +53,7 @@ namespace gitdb.Data.Tests.Unit
 		[Test]
 		public void Test_GetTypes()
         {
-            var context = GetTestDataContext ();
+            var context = GetMockGitDB ();
 
             var typeManager = new DataTypeManager (context.Settings, context.Gitter);
 
@@ -61,7 +61,7 @@ namespace gitdb.Data.Tests.Unit
 
             var typesString = exampleType.Name + typeManager.TypeNamesParser.PairSeparator + exampleType.FullName + ", " + exampleType.Assembly.GetName().Name;
 
-            var filePath = context.Location.GetPath (typeManager.TypesFileName);
+            var filePath = context.Settings.Location.GetPath (typeManager.TypesFileName);
 
             File.WriteAllText(filePath, typesString);
 			var types = typeManager.GetTypes();

@@ -37,7 +37,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseEntity.cs" />
-    <Compile Include="ExampleEntity.cs" />
     <Compile Include="TwoWayAttribute.cs" />
     <Compile Include="OneWayAttribute.cs" />
     <Compile Include="BaseLinkAttribute.cs" />

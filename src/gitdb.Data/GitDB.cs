@@ -22,6 +22,8 @@ namespace gitdb.Data
 		public DataLinker Linker;
 		public DataChecker Checker;
 
+        public PropertyIndexer Indexer;
+
 		public EntityLinker EntityLinker;
 
 		public GitDBSettings Settings = new GitDBSettings();
@@ -58,10 +60,12 @@ namespace gitdb.Data
 
 			EntityLinker = new EntityLinker ();
 
+            Indexer = new PropertyIndexer (this);
+
             var preparer = new DataPreparer (Settings);
 			Preparer = preparer;
 
-			var reader = new DataReader (Settings, TypeManager, IdManager);
+            var reader = new DataReader (Settings, TypeManager, IdManager, Indexer);
 			Reader = reader;
 
 			var lister = new DataLister (Settings, TypeManager, IdManager, reader);
@@ -149,15 +153,31 @@ namespace gitdb.Data
         #region Get
         public virtual T Get<T>(string id)
             where T : BaseEntity
+        {
+            return Reader.Read<T> (id);
+        }
+
+        public virtual T Get<T>(string propertyName, object propertyValue)
+            where T : BaseEntity
 		{
-			return Reader.Read<T> (id);
+            return Indexer.Read<T> (propertyName, propertyValue);
 		}
 
         public virtual T[] Get<T>()
             where T : BaseEntity
 		{
 			return Lister.Get<T> ();
-		}
+        }
+
+        public virtual BaseEntity[] Get(Type entityType)
+        {
+            return Lister.Get(entityType.Name);
+        }
+
+        public virtual BaseEntity[] Get(string entityTypeName)
+        {
+            return Lister.Get(entityTypeName);
+        }
 
         public virtual BaseEntity[] GetAll()
 		{

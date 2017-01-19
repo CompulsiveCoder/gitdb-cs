@@ -13,7 +13,7 @@ namespace gitdb.Data
 		{
 			var validatedEntity = entity.Clone ();
 
-            // TODO
+            // TODO: Add validation
 
 			return validatedEntity;
 		}

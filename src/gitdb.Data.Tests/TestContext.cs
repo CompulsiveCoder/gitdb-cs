@@ -18,7 +18,9 @@ namespace gitdb.Data.Tests
 		public DataUpdater Updater { get;set; }
 		public DataDeleter Deleter { get;set; }
 		public DataReader Reader { get;set; }
-		public DataChecker Checker { get;set; }
+        public DataChecker Checker { get;set; }
+
+        public PropertyIndexer Indexer;
 
         public Gitter Gitter { get;set; }
 
@@ -38,12 +40,15 @@ namespace gitdb.Data.Tests
             IdManager = new DataIdManager (Settings, Gitter);
             TypeManager = new DataTypeManager (Settings, Gitter);
 
-			EntityLinker = new EntityLinker ();
+            EntityLinker = new EntityLinker ();
+            throw new NotImplementedException ();
+            /*
+            Indexer = new PropertyIndexer (DB);
 
             var preparer = new DataPreparer (Settings);
 			Preparer = preparer;
 
-			var reader = new DataReader (Settings, TypeManager, IdManager);
+			var reader = new DataReader (Settings, TypeManager, IdManager, Indexer);
 			Reader = reader;
 
 			var checker = new DataChecker (Settings, reader);
@@ -61,7 +66,7 @@ namespace gitdb.Data.Tests
 			// TODO: Is there a way to avoid this messy hack?
 			// Make sure the linker is set to the saver and updater
 			saver.Linker = linker;
-			updater.Linker = linker;
+			updater.Linker = linker;*/
 		}
 	}
 }

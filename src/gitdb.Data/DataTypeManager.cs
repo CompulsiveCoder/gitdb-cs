@@ -104,6 +104,18 @@ namespace gitdb.Data
 			}
 		}
 
+        public void AssertExists(Type type)
+        {
+            AssertExists (type.FullName);
+        }
+
+        public void AssertExists(string typeName)
+        {
+            if (!Exists (typeName)) {
+                throw new EntityTypeNotFoundException (typeName);
+            }
+        }
+
 		public Type GetType(string typeName)
 		{
 			var types = GetTypes ();

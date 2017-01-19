@@ -36,6 +36,8 @@ namespace gitdb.Data
 
 		public BaseEntity[] Get(string entityTypeName)
 		{
+            TypeManager.AssertExists (entityTypeName);
+
 			var ids = IdManager.GetIds(entityTypeName);
 
 			var entities = new List<BaseEntity> ();

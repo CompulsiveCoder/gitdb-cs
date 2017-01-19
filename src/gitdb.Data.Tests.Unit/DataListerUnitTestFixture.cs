@@ -11,7 +11,7 @@ namespace gitdb.Data.Tests.Unit
         [Test]
         public void Test_List()
         {
-            var context = GetTestDataContext ();
+            var context = GetMockGitDB ();
 
             var exampleArticle = new ExampleArticle ();
 

@@ -11,13 +11,13 @@ namespace gitdb.Data.Tests.Unit
         [Test]
         public void Test_GetIds()
         {
-            var context = GetTestDataContext ();
+            var context = GetMockGitDB ();
 
             var entityType = typeof(ExampleArticle);
 
             var fileName = entityType.FullName + "-Ids";
 
-            var filePath = context.Location.GetPath (fileName);
+            var filePath = context.Settings.Location.GetPath (fileName);
 
             var idsString = Guid.NewGuid ().ToString () + "," + Guid.NewGuid ().ToString ();
 
@@ -33,13 +33,13 @@ namespace gitdb.Data.Tests.Unit
         [Test]
         public void Test_SetIds()
         {
-            var context = GetTestDataContext ();
+            var context = GetMockGitDB ();
 
             var entityType = typeof(ExampleArticle);
 
             var fileName = entityType.FullName + "-Ids";
 
-            var filePath = context.Location.GetPath (fileName);
+            var filePath = context.Settings.Location.GetPath (fileName);
 
             var ids = new string[]{Guid.NewGuid ().ToString (), Guid.NewGuid ().ToString ()};
 

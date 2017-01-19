@@ -11,7 +11,7 @@ namespace gitdb.Data.Tests.Unit
 		[Test]
 		public void Test_Check()
 		{
-            var context = GetTestDataContext ();
+            var context = GetMockGitDB ();
 
             var checker = new DataChecker (context.Settings, context.Reader);
 
